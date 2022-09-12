@@ -15,15 +15,224 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/PlayerStats */ "./src/components/PlayerStats.js");
+/* harmony import */ var _components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/EnemyStats */ "./src/components/EnemyStats.js");
+
+
 
 
 
 
 function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Hello World"));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: "battle-scene"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: "player-sprite",
+    src: "https://img.pokemondb.net/sprites/black-white/back-normal/blastoise.png",
+    alt: "Blastoise"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: "enemy-sprite",
+    src: "https://img.pokemondb.net/sprites/black-white/normal/charizard.png",
+    alt: "Charizard"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "battle-animation"
+  }, "Animation goes here later")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: "text-section"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "status-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "status-text"
+  }, "Charizard wants to battle!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "player-options"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option red"
+  }, "Fight"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option yellow"
+  }, "Bag"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option green"
+  }, "Pokemon"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option blue"
+  }, "Run"))));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./src/components/EnemyStats.js":
+/*!**************************************!*\
+  !*** ./src/components/EnemyStats.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_enemy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/enemy */ "./src/store/enemy.js");
+
+
+
+
+var EnemyStats = function EnemyStats() {
+  var player = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.player;
+  });
+  var enemy = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.enemy;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {}, []);
+
+  function damageHandler() {
+    dispatch((0,_store_enemy__WEBPACK_IMPORTED_MODULE_2__._enemyTakeDamage)(player, 0));
+  }
+
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    console.log(enemy);
+  }, [enemy]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: damageHandler,
+    className: "stats enemy"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Charizard ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Lvl. 50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "health-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "health green"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EnemyStats);
+
+/***/ }),
+
+/***/ "./src/components/PlayerStats.js":
+/*!***************************************!*\
+  !*** ./src/components/PlayerStats.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/player */ "./src/store/player.js");
+
+
+
+
+var PlayerStats = function PlayerStats() {
+  var player = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.player;
+  });
+  var enemy = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.enemy;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {}, []);
+
+  function damageHandler() {
+    dispatch((0,_store_player__WEBPACK_IMPORTED_MODULE_2__._playerTakeDamage)(enemy, 0));
+  }
+
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    console.log(player);
+  }, [player]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: damageHandler,
+    className: "stats player"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Blastoise ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Lvl. 50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "health-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "health green"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "HP 103/103"));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerStats);
+
+/***/ }),
+
+/***/ "./src/store/enemy.js":
+/*!****************************!*\
+  !*** ./src/store/enemy.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_enemyTakeDamage": () => (/* binding */ _enemyTakeDamage),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var initState = {
+  name: "Charizard",
+  pokeId: 6,
+  type: "fire",
+  stats: {
+    health: 147,
+    atk: 103,
+    def: 97,
+    specialAtk: 129,
+    specialDef: 105,
+    speed: 118
+  },
+  moves: [{
+    name: "Flamethrower",
+    type: "fire",
+    cat: "specialDef",
+    power: 90
+  }, {
+    name: "Wing Attack",
+    type: "flying",
+    cat: "def",
+    power: 60
+  }]
+}; // action types
+
+var ENEMY_TAKE_DAMAGE = "ENEMY_TAKE_DAMAGE"; // action creators
+
+var _enemyTakeDamage = function _enemyTakeDamage(enemy, moveIdx) {
+  return {
+    type: ENEMY_TAKE_DAMAGE,
+    enemy: enemy,
+    moveIdx: moveIdx
+  };
+}; // reducer 
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case ENEMY_TAKE_DAMAGE:
+      var enemy = action.enemy;
+      var move = enemy.moves[action.moveIdx];
+      var newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+
+      if (newHealth > state.stats.health) {
+        newHealth = 0;
+      }
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        stats: _objectSpread(_objectSpread({}, state.stats), {}, {
+          health: newHealth
+        })
+      });
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
@@ -37,20 +246,106 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./player */ "./src/store/player.js");
+/* harmony import */ var _enemy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enemy */ "./src/store/enemy.js");
 
 
-var reducers = (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)({// place your separate reducers here, for example:
+
+
+var reducers = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+  // place your separate reducers here, for example:
   // students: studentReducer,
+  player: _player__WEBPACK_IMPORTED_MODULE_0__["default"],
+  enemy: _enemy__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 function configureStore() {
   // return createStore(########, applyMiddleware(thunk));
-  return (0,redux__WEBPACK_IMPORTED_MODULE_0__.createStore)(reducers, (0,redux__WEBPACK_IMPORTED_MODULE_0__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_2__.createStore)(reducers, (0,redux__WEBPACK_IMPORTED_MODULE_2__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"]));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
+
+/***/ }),
+
+/***/ "./src/store/player.js":
+/*!*****************************!*\
+  !*** ./src/store/player.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_playerTakeDamage": () => (/* binding */ _playerTakeDamage),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var initState = {
+  name: "Blastoise",
+  pokeId: 9,
+  type: "water",
+  stats: {
+    health: 154,
+    atk: 83,
+    def: 100,
+    specialAtk: 85,
+    specialDef: 105,
+    speed: 78
+  },
+  moves: [{
+    name: "Hydro Pump",
+    type: "water",
+    cat: "specialDef",
+    power: 110
+  }, {
+    name: "Bite",
+    type: "dark",
+    cat: "def",
+    power: 60
+  }]
+}; // action types
+
+var PLAYER_TAKE_DAMAGE = "PLAYER_TAKE_DAMAGE"; // action creators
+
+var _playerTakeDamage = function _playerTakeDamage(enemy, moveIdx) {
+  return {
+    type: PLAYER_TAKE_DAMAGE,
+    enemy: enemy,
+    moveIdx: moveIdx
+  };
+}; // reducer 
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case PLAYER_TAKE_DAMAGE:
+      var enemy = action.enemy;
+      var move = enemy.moves[action.moveIdx];
+      var newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+
+      if (newHealth > state.stats.health) {
+        newHealth = state.stats.health;
+      }
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        stats: _objectSpread(_objectSpread({}, state.stats), {}, {
+          health: newHealth
+        })
+      });
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 
