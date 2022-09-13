@@ -11,10 +11,6 @@ const EnemyStats = () => {
     React.useEffect(()=>{
     },[])
 
-    function damageHandler() {
-        dispatch(_enemyTakeDamage(player, 0))
-    }
-
     function healthIndicator() {
         let status = enemy.stats.health/enemy.stats.maxHealth
         if (status< 0.2) {
@@ -26,13 +22,13 @@ const EnemyStats = () => {
         }
     }
 
-    React.useEffect(()=>{
-        console.log(enemy)
-    },[enemy])
+    // React.useEffect(()=>{
+    //     console.log(enemy)
+    // },[enemy])
 
 
   return (
-    <div onClick={damageHandler} className="stats enemy">
+    <div className="stats enemy">
       <p>
         Charizard <span>Lvl. 50</span>
       </p>

@@ -25,9 +25,9 @@ const PlayerStats = () => {
         }
     }
 
-    React.useEffect(()=>{
-        console.log(player)
-    },[player])
+    // React.useEffect(()=>{
+    //     console.log(player)
+    // },[player])
 
   return (
     <div onClick={damageHandler} className="stats player">
