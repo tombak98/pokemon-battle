@@ -14,6 +14,17 @@ const PlayerStats = () => {
         dispatch(_playerTakeDamage(enemy, 0))
     }
 
+    function healthIndicator() {
+        let status = player.stats.health/player.stats.maxHealth
+        if (status< 0.2) {
+            return "fire"
+        } else if (status<0.5) {
+            return "electric"
+        } else {
+            return "grass"
+        }
+    }
+
     React.useEffect(()=>{
         console.log(player)
     },[player])
@@ -24,9 +35,11 @@ const PlayerStats = () => {
         Blastoise <span>Lvl. 50</span>
       </p>
       <div className="health-box">
-        <div className="health green"></div>
+        <div style={{width:`${player.stats.health/player.stats.maxHealth*100}%`}} 
+            className={"health " + healthIndicator()}>
+        </div>
       </div>
-      <p>HP 103/103</p>
+      <p>{`HP ${player.stats.health}/${player.stats.maxHealth}`}</p>
     </div>
   );
 };

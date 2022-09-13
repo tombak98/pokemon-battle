@@ -45,39 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-}
-
-.red {
-  background-color: rgb(251, 118, 118);
-}
-
-.red:hover{
-  background-color: rgb(255, 77, 77);
-}
-
-.blue {
-  background-color: rgb(103, 230, 247);
-}
-
-.blue:hover {
-  background-color: rgb(41, 219, 242);
-}
-
-.green {
-  background-color: rgb(138, 254, 138);
-}
-
-.green:hover {
-  background-color: rgb(77, 254, 77);
-}
-
-.yellow {
-  background-color: rgb(254, 254, 148);
-}
-
-.yellow:hover {
-  background-color: rgb(252, 252, 80);
+  font-size: 1.5rem;
 }
 
 /* battle scene */
@@ -143,7 +111,72 @@
 }
 
 .health {
-  width: 100%;
   height: 100%;
-  transition: ease 2s;
+  transition: ease 1s;
+}
+
+/* colors */
+.fire {
+  background-color: rgb(251, 118, 118);
+}
+
+.fire:hover{
+  background-color: rgb(255, 77, 77);
+}
+
+.water {
+  background-color: rgb(103, 230, 247);
+}
+
+.water:hover {
+  background-color: rgb(41, 219, 242);
+}
+
+.grass {
+  background-color: rgb(138, 254, 138);
+}
+
+.grass:hover {
+  background-color: rgb(77, 254, 77);
+}
+
+.electric {
+  background-color: rgb(254, 254, 148);
+}
+
+.electric:hover {
+  background-color: rgb(252, 252, 80);
+}
+
+.dark {
+  background-color: rgb(49, 53, 80);
+  color: white
+}
+
+.dark:hover {
+  background-color: rgb(20, 22, 33);
+}
+
+.flying {
+  background-color: rgb(151, 191, 255);
+}
+
+.flying:hover {
+  background-color: rgb(127, 160, 214)
+}
+
+.steel {
+  background-color: rgb(160, 160, 160)
+}
+
+.steel:hover{
+  background-color: rgb(135, 135, 135)
+}
+
+.normal {
+  background-color: rgb(216, 216, 216)
+}
+
+.normal:hover {
+  background-color: rgb(181, 181, 181)
 }

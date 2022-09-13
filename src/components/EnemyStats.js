@@ -15,9 +15,21 @@ const EnemyStats = () => {
         dispatch(_enemyTakeDamage(player, 0))
     }
 
+    function healthIndicator() {
+        let status = enemy.stats.health/enemy.stats.maxHealth
+        if (status< 0.2) {
+            return "fire"
+        } else if (status<0.5) {
+            return "electric"
+        } else {
+            return "grass"
+        }
+    }
+
     React.useEffect(()=>{
         console.log(enemy)
     },[enemy])
+
 
   return (
     <div onClick={damageHandler} className="stats enemy">
@@ -25,7 +37,7 @@ const EnemyStats = () => {
         Charizard <span>Lvl. 50</span>
       </p>
       <div className="health-box">
-        <div className="health green"></div>
+        <div style={{width:`${enemy.stats.health/enemy.stats.maxHealth*100}%`}} className={"health " + healthIndicator()}></div>
       </div>
     </div>
   );

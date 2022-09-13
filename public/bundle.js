@@ -17,6 +17,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/PlayerStats */ "./src/components/PlayerStats.js");
 /* harmony import */ var _components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/EnemyStats */ "./src/components/EnemyStats.js");
+/* harmony import */ var _components_PlayerActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/PlayerActions */ "./src/components/PlayerActions.js");
+/* harmony import */ var _components_PlayerMoves__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/PlayerMoves */ "./src/components/PlayerMoves.js");
+/* harmony import */ var _store_player__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store/player */ "./src/store/player.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
@@ -24,6 +42,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState(true),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      toggleOptions = _React$useState2[0],
+      setToggleOptions = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState("Charizard wants to Battle!"),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      statusText = _React$useState4[0],
+      setStatusText = _React$useState4[1];
+
+  var player = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.player;
+  });
+  var enemy = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.enemy;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  function enemyAttacks() {
+    var randNum = Math.floor(Math.random() * 4);
+    dispatch((0,_store_player__WEBPACK_IMPORTED_MODULE_6__._playerTakeDamage)(enemy, randNum));
+    setStatusText("".concat(enemy.name, " used ").concat(enemy.moves[randNum].name));
+  }
+
+  function changeView() {
+    setToggleOptions(!toggleOptions);
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "battle-scene"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
@@ -31,6 +77,7 @@ function App() {
     src: "https://img.pokemondb.net/sprites/black-white/back-normal/blastoise.png",
     alt: "Blastoise"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    onClick: enemyAttacks,
     className: "enemy-sprite",
     src: "https://img.pokemondb.net/sprites/black-white/normal/charizard.png",
     alt: "Charizard"
@@ -42,17 +89,14 @@ function App() {
     className: "status-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     className: "status-text"
-  }, "Charizard wants to battle!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, statusText)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "player-options"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "option red"
-  }, "Fight"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "option yellow"
-  }, "Bag"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "option green"
-  }, "Pokemon"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "option blue"
-  }, "Run"))));
+  }, toggleOptions ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerActions__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    changeView: changeView
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerMoves__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    setStatusText: setStatusText,
+    changeView: changeView
+  }))));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
@@ -91,6 +135,18 @@ var EnemyStats = function EnemyStats() {
     dispatch((0,_store_enemy__WEBPACK_IMPORTED_MODULE_2__._enemyTakeDamage)(player, 0));
   }
 
+  function healthIndicator() {
+    var status = enemy.stats.health / enemy.stats.maxHealth;
+
+    if (status < 0.2) {
+      return "fire";
+    } else if (status < 0.5) {
+      return "electric";
+    } else {
+      return "grass";
+    }
+  }
+
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     console.log(enemy);
   }, [enemy]);
@@ -100,11 +156,91 @@ var EnemyStats = function EnemyStats() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Charizard ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Lvl. 50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "health-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "health green"
+    style: {
+      width: "".concat(enemy.stats.health / enemy.stats.maxHealth * 100, "%")
+    },
+    className: "health " + healthIndicator()
   })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EnemyStats);
+
+/***/ }),
+
+/***/ "./src/components/PlayerActions.js":
+/*!*****************************************!*\
+  !*** ./src/components/PlayerActions.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var PlayerActions = function PlayerActions(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: props.changeView,
+    className: "option fire"
+  }, "Fight"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option electric"
+  }, "Bag"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option grass"
+  }, "Pokemon"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "option water"
+  }, "Run"));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerActions);
+
+/***/ }),
+
+/***/ "./src/components/PlayerMoves.js":
+/*!***************************************!*\
+  !*** ./src/components/PlayerMoves.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_enemy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/enemy */ "./src/store/enemy.js");
+
+
+
+
+var PlayerMoves = function PlayerMoves(props) {
+  var player = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state.player;
+  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  function damageHandler(event) {
+    event.preventDefault();
+    var moveNum = event.target.getAttribute('index');
+    dispatch((0,_store_enemy__WEBPACK_IMPORTED_MODULE_2__._enemyTakeDamage)(player, moveNum));
+    props.changeView();
+    props.setStatusText("".concat(player.name, " used ").concat(player.moves[moveNum].name, "!"));
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, player.moves.map(function (move, idx) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      key: idx,
+      index: idx,
+      onClick: damageHandler,
+      className: "option " + "".concat(move.type)
+    }, move.name);
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerMoves);
 
 /***/ }),
 
@@ -140,6 +276,18 @@ var PlayerStats = function PlayerStats() {
     dispatch((0,_store_player__WEBPACK_IMPORTED_MODULE_2__._playerTakeDamage)(enemy, 0));
   }
 
+  function healthIndicator() {
+    var status = player.stats.health / player.stats.maxHealth;
+
+    if (status < 0.2) {
+      return "fire";
+    } else if (status < 0.5) {
+      return "electric";
+    } else {
+      return "grass";
+    }
+  }
+
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     console.log(player);
   }, [player]);
@@ -149,8 +297,11 @@ var PlayerStats = function PlayerStats() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Blastoise ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Lvl. 50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "health-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "health green"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "HP 103/103"));
+    style: {
+      width: "".concat(player.stats.health / player.stats.maxHealth * 100, "%")
+    },
+    className: "health " + healthIndicator()
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "HP ".concat(player.stats.health, "/").concat(player.stats.maxHealth)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerStats);
@@ -180,6 +331,7 @@ var initState = {
   type: "fire",
   stats: {
     health: 147,
+    maxHealth: 147,
     atk: 103,
     def: 97,
     specialAtk: 129,
@@ -190,12 +342,22 @@ var initState = {
     name: "Flamethrower",
     type: "fire",
     cat: "specialDef",
-    power: 90
+    power: 160
   }, {
     name: "Wing Attack",
     type: "flying",
     cat: "def",
-    power: 60
+    power: 110
+  }, {
+    name: "Scratch",
+    type: "normal",
+    cat: "def",
+    power: 110
+  }, {
+    name: "Swords Dance",
+    type: "normal",
+    cat: "boost",
+    power: 0
   }]
 }; // action types
 
@@ -217,11 +379,21 @@ var _enemyTakeDamage = function _enemyTakeDamage(enemy, moveIdx) {
     case ENEMY_TAKE_DAMAGE:
       var enemy = action.enemy;
       var move = enemy.moves[action.moveIdx];
-      var newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+      var newHealth; // check and see if stat boosting move
+
+      if (move.cat === "boost") {
+        newHealth = state.stats.health;
+      } else {
+        newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+      } // make sure cant do negative damage or go below zero
+
 
       if (newHealth > state.stats.health) {
+        newHealth = state.stats.health;
+      } else if (newHealth < 0) {
         newHealth = 0;
-      }
+      } // return state
+
 
       return _objectSpread(_objectSpread({}, state), {}, {
         stats: _objectSpread(_objectSpread({}, state.stats), {}, {
@@ -293,6 +465,7 @@ var initState = {
   type: "water",
   stats: {
     health: 154,
+    maxHealth: 154,
     atk: 83,
     def: 100,
     specialAtk: 85,
@@ -303,12 +476,22 @@ var initState = {
     name: "Hydro Pump",
     type: "water",
     cat: "specialDef",
-    power: 110
+    power: 160
   }, {
     name: "Bite",
     type: "dark",
     cat: "def",
-    power: 60
+    power: 110
+  }, {
+    name: "Water Pulse",
+    type: "water",
+    cat: "specialDef",
+    power: 140
+  }, {
+    name: "Iron Defense",
+    type: "steel",
+    cat: "boost",
+    power: 0
   }]
 }; // action types
 
@@ -330,11 +513,21 @@ var _playerTakeDamage = function _playerTakeDamage(enemy, moveIdx) {
     case PLAYER_TAKE_DAMAGE:
       var enemy = action.enemy;
       var move = enemy.moves[action.moveIdx];
-      var newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+      var newHealth; // check and see if stat boosting move
+
+      if (move.cat === "boost") {
+        newHealth = state.stats.health;
+      } else {
+        newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+      } // make sure cant do negative damage or go below zero
+
 
       if (newHealth > state.stats.health) {
         newHealth = state.stats.health;
-      }
+      } else if (newHealth < 0) {
+        newHealth = 0;
+      } // return state
+
 
       return _objectSpread(_objectSpread({}, state), {}, {
         stats: _objectSpread(_objectSpread({}, state.stats), {}, {

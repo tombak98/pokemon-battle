@@ -5,6 +5,7 @@ const initState = {
     type: "fire",
     stats: {
         health: 147,
+        maxHealth: 147,
         atk: 103,
         def: 97,
         specialAtk: 129,
@@ -16,13 +17,25 @@ const initState = {
             name: "Flamethrower",
             type: "fire",
             cat: "specialDef",
-            power: 90
+            power: 160
         },
         {
             name: "Wing Attack",
             type: "flying",
             cat: "def",
-            power: 60
+            power: 110
+        },
+        {
+            name: "Scratch",
+            type: "normal",
+            cat: "def",
+            power: 110
+        },
+        {
+            name: "Swords Dance",
+            type: "normal",
+            cat: "boost",
+            power: 0
         }
     ]
 }
@@ -48,10 +61,20 @@ export default (state=initState, action) => {
         case ENEMY_TAKE_DAMAGE:
             let enemy = action.enemy
             let move = enemy.moves[action.moveIdx]
-            let newHealth = state.stats.health - (move.power - state.stats[move.cat])
+            let newHealth
+            // check and see if stat boosting move
+            if (move.cat === "boost"){
+                newHealth = state.stats.health
+            } else {
+                newHealth = state.stats.health - (move.power - state.stats[move.cat])
+            }
+            // make sure cant do negative damage or go below zero
             if (newHealth > state.stats.health) {
+                newHealth = state.stats.health
+            } else if (newHealth < 0) {
                 newHealth = 0
             }
+            // return state
             return {
                 ...state,
                 stats: {

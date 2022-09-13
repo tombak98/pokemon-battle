@@ -5,6 +5,7 @@ const initState = {
     type: "water",
     stats: {
         health: 154,
+        maxHealth: 154,
         atk: 83,
         def: 100,
         specialAtk: 85,
@@ -16,14 +17,26 @@ const initState = {
             name: "Hydro Pump",
             type: "water",
             cat: "specialDef",
-            power: 110
+            power: 160
         },
         {
             name: "Bite",
             type: "dark",
             cat: "def",
-            power: 60
-        }
+            power: 110
+        },
+        {
+            name: "Water Pulse",
+            type: "water",
+            cat: "specialDef",
+            power: 140
+        },
+        {
+            name: "Iron Defense",
+            type: "steel",
+            cat: "boost",
+            power: 0
+        },
     ]
 }
 
@@ -48,10 +61,20 @@ export default (state=initState, action) => {
         case PLAYER_TAKE_DAMAGE:
             let enemy = action.enemy
             let move = enemy.moves[action.moveIdx]
-            let newHealth = state.stats.health - (move.power - state.stats[move.cat])
+            let newHealth
+            // check and see if stat boosting move
+            if (move.cat === "boost"){
+                newHealth = state.stats.health
+            } else {
+                newHealth = state.stats.health - (move.power - state.stats[move.cat])
+            }
+            // make sure cant do negative damage or go below zero
             if (newHealth > state.stats.health) {
                 newHealth = state.stats.health
+            } else if (newHealth < 0) {
+                newHealth = 0
             }
+            // return state
             return {
                 ...state,
                 stats: {
