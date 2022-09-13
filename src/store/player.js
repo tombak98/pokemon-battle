@@ -17,32 +17,42 @@ const initState = {
             name: "Hydro Pump",
             type: "water",
             cat: "specialDef",
-            power: 160
+            power: 110
         },
         {
             name: "Bite",
             type: "dark",
             cat: "def",
-            power: 110
+            power: 60
         },
         {
             name: "Water Pulse",
             type: "water",
             cat: "specialDef",
-            power: 140
+            power: 80
         },
         {
             name: "Iron Defense",
             type: "steel",
             cat: "boost",
+            stat: "def",
             power: 0
         },
+    ],
+    weak: [
+        "grass",
+        "electric"
+    ],
+    strong: [
+        "fire",
+        "water"
     ]
 }
 
 // action types
 
 const PLAYER_TAKE_DAMAGE = "PLAYER_TAKE_DAMAGE"
+const PLAYER_BOOST = "PLAYER_BOOST"
 
 // action creators
 
@@ -54,6 +64,13 @@ export const _playerTakeDamage = (enemy, moveIdx) => {
     }
 }
 
+export const _playerBoost = (stat) => {
+    return {
+        type: PLAYER_BOOST,
+        stat: stat
+    }
+}
+
 // reducer 
 
 export default (state=initState, action) => {
@@ -62,11 +79,30 @@ export default (state=initState, action) => {
             let enemy = action.enemy
             let move = enemy.moves[action.moveIdx]
             let newHealth
+            let STAB = 1
+            let superEff = 1
+            let defenseRatio = 1
             // check and see if stat boosting move
             if (move.cat === "boost"){
                 newHealth = state.stats.health
+                state.stats[move.stat] = 1.5*state.stats[move.stat]
             } else {
-                newHealth = state.stats.health - (move.power - state.stats[move.cat])
+                // actual damage calc
+                if (enemy.type === move.type) {
+                    STAB = 1.5
+                }
+                if (state.weak.includes(move.type)) {
+                    superEff = 2
+                } else if (state.strong.includes(move.type)) {
+                    superEff = 0.5
+                }
+                if (move.cat === "def") {
+                    defenseRatio = enemy.stats.atk/state.stats.def
+                } else {
+                    defenseRatio = enemy.stats.specialAtk/state.stats.specialDef
+                }
+                let damage = ((2*(50/5)*move.power*defenseRatio)/50)*STAB*superEff
+                newHealth = state.stats.health - damage
             }
             // make sure cant do negative damage or go below zero
             if (newHealth > state.stats.health) {
@@ -74,6 +110,8 @@ export default (state=initState, action) => {
             } else if (newHealth < 0) {
                 newHealth = 0
             }
+            // no decimal health
+            newHealth = Math.floor(newHealth)
             // return state
             return {
                 ...state,
@@ -82,6 +120,15 @@ export default (state=initState, action) => {
                     health: newHealth
                 }
             }
+        case PLAYER_BOOST:
+            let newStat = state.stats[action.stat] * 1.5
+            return {
+                ...state,
+                stats: {
+                    ...state.stats,
+                    [action.stat]: newStat
+                }
+            } 
         default:
             return state
     }

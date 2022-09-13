@@ -112,7 +112,7 @@
 
 .health {
   height: 100%;
-  transition: ease 1s;
+  transition: linear 1.5s;
 }
 
 /* colors */
@@ -180,3 +180,5 @@
 .normal:hover {
   background-color: rgb(181, 181, 181)
 }
+
+/* Animation Testing */

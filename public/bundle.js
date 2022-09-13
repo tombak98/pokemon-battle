@@ -20,6 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PlayerActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/PlayerActions */ "./src/components/PlayerActions.js");
 /* harmony import */ var _components_PlayerMoves__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/PlayerMoves */ "./src/components/PlayerMoves.js");
 /* harmony import */ var _store_player__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store/player */ "./src/store/player.js");
+/* harmony import */ var _components_TypedText__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/TypedText */ "./src/components/TypedText.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -41,6 +42,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function App() {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState(true),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -51,6 +53,11 @@ function App() {
       _React$useState4 = _slicedToArray(_React$useState3, 2),
       statusText = _React$useState4[0],
       setStatusText = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(0),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      revealedLetters = _React$useState6[0],
+      setRevealedLetters = _React$useState6[1];
 
   var player = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.player;
@@ -63,11 +70,22 @@ function App() {
   function enemyAttacks() {
     var randNum = Math.floor(Math.random() * 4);
     dispatch((0,_store_player__WEBPACK_IMPORTED_MODULE_6__._playerTakeDamage)(enemy, randNum));
-    setStatusText("".concat(enemy.name, " used ").concat(enemy.moves[randNum].name));
+    setStatusText("".concat(enemy.name, " used ").concat(enemy.moves[randNum].name, "!"));
+    resetReveal();
   }
 
   function changeView() {
     setToggleOptions(!toggleOptions);
+  }
+
+  function updateReveal() {
+    setRevealedLetters(function (l) {
+      return l + 1;
+    });
+  }
+
+  function resetReveal() {
+    setRevealedLetters(0);
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -87,13 +105,17 @@ function App() {
     id: "text-section"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "status-box"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
-    className: "status-text"
-  }, statusText)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TypedText__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    updateReveal: updateReveal,
+    revealedLetters: revealedLetters,
+    children: statusText,
+    delay: 50
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "player-options"
   }, toggleOptions ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerActions__WEBPACK_IMPORTED_MODULE_4__["default"], {
     changeView: changeView
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerMoves__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    resetReveal: resetReveal,
     setStatusText: setStatusText,
     changeView: changeView
   }))));
@@ -212,6 +234,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_enemy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/enemy */ "./src/store/enemy.js");
+/* harmony import */ var _store_player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/player */ "./src/store/player.js");
+
 
 
 
@@ -225,9 +249,16 @@ var PlayerMoves = function PlayerMoves(props) {
   function damageHandler(event) {
     event.preventDefault();
     var moveNum = event.target.getAttribute('index');
-    dispatch((0,_store_enemy__WEBPACK_IMPORTED_MODULE_2__._enemyTakeDamage)(player, moveNum));
+
+    if (player.moves[moveNum].cat === "boost") {
+      dispatch((0,_store_player__WEBPACK_IMPORTED_MODULE_3__._playerBoost)(player.moves[moveNum].stat));
+    } else {
+      dispatch((0,_store_enemy__WEBPACK_IMPORTED_MODULE_2__._enemyTakeDamage)(player, moveNum));
+    }
+
     props.changeView();
     props.setStatusText("".concat(player.name, " used ").concat(player.moves[moveNum].name, "!"));
+    props.resetReveal();
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, player.moves.map(function (move, idx) {
@@ -308,6 +339,47 @@ var PlayerStats = function PlayerStats() {
 
 /***/ }),
 
+/***/ "./src/components/TypedText.js":
+/*!*************************************!*\
+  !*** ./src/components/TypedText.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var TypedText = function TypedText(_ref) {
+  var updateReveal = _ref.updateReveal,
+      revealedLetters = _ref.revealedLetters,
+      children = _ref.children,
+      _ref$delay = _ref.delay,
+      delay = _ref$delay === void 0 ? 110 : _ref$delay;
+  // const [revealedLetters, setRevealedLetters] = React.useState(0)
+  var interval = setInterval(function () {
+    return updateReveal();
+  }, delay);
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    if (revealedLetters >= children.length) clearInterval(interval);
+  }, [children, interval, revealedLetters]);
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    return function () {
+      clearInterval(interval);
+    };
+  }, [interval]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "status-text"
+  }, children.substring(0, revealedLetters)));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TypedText);
+
+/***/ }),
+
 /***/ "./src/store/enemy.js":
 /*!****************************!*\
   !*** ./src/store/enemy.js ***!
@@ -316,6 +388,7 @@ var PlayerStats = function PlayerStats() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_enemyBoost": () => (/* binding */ _enemyBoost),
 /* harmony export */   "_enemyTakeDamage": () => (/* binding */ _enemyTakeDamage),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -339,35 +412,45 @@ var initState = {
     speed: 118
   },
   moves: [{
-    name: "Flamethrower",
+    name: "Fire Blast",
     type: "fire",
     cat: "specialDef",
-    power: 160
+    power: 110
   }, {
     name: "Wing Attack",
     type: "flying",
     cat: "def",
-    power: 110
+    power: 60
   }, {
     name: "Scratch",
     type: "normal",
     cat: "def",
-    power: 110
+    power: 30
   }, {
     name: "Swords Dance",
     type: "normal",
     cat: "boost",
+    stat: "atk",
     power: 0
-  }]
+  }],
+  weak: ["water", "electric", "rock"],
+  strong: ["grass", "fire", "flying"]
 }; // action types
 
-var ENEMY_TAKE_DAMAGE = "ENEMY_TAKE_DAMAGE"; // action creators
+var ENEMY_TAKE_DAMAGE = "ENEMY_TAKE_DAMAGE";
+var ENEMY_BOOST = "ENEMY_BOOST"; // action creators
 
 var _enemyTakeDamage = function _enemyTakeDamage(enemy, moveIdx) {
   return {
     type: ENEMY_TAKE_DAMAGE,
     enemy: enemy,
     moveIdx: moveIdx
+  };
+};
+var _enemyBoost = function _enemyBoost(stat) {
+  return {
+    type: ENEMY_BOOST,
+    stat: stat
   };
 }; // reducer 
 
@@ -379,12 +462,32 @@ var _enemyTakeDamage = function _enemyTakeDamage(enemy, moveIdx) {
     case ENEMY_TAKE_DAMAGE:
       var enemy = action.enemy;
       var move = enemy.moves[action.moveIdx];
-      var newHealth; // check and see if stat boosting move
+      var newHealth;
+      var superEff = 1;
+      var defenseRatio = 1;
+      var STAB = 1; // check and see if stat boosting move
 
       if (move.cat === "boost") {
         newHealth = state.stats.health;
       } else {
-        newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+        if (enemy.type === move.type) {
+          STAB = 1.5;
+        }
+
+        if (state.weak.includes(move.type)) {
+          superEff = 2;
+        } else if (state.strong.includes(move.type)) {
+          superEff = 0.5;
+        }
+
+        if (move.cat === "def") {
+          defenseRatio = enemy.stats.atk / state.stats.def;
+        } else {
+          defenseRatio = enemy.stats.specialAtk / state.stats.specialDef;
+        }
+
+        var damage = 2 * (50 / 5) * move.power * defenseRatio / 50 * STAB * superEff;
+        newHealth = state.stats.health - damage;
       } // make sure cant do negative damage or go below zero
 
 
@@ -392,13 +495,21 @@ var _enemyTakeDamage = function _enemyTakeDamage(enemy, moveIdx) {
         newHealth = state.stats.health;
       } else if (newHealth < 0) {
         newHealth = 0;
-      } // return state
+      } // make sure newHealth cant be a fraction
 
+
+      newHealth = Math.floor(newHealth); // return state
 
       return _objectSpread(_objectSpread({}, state), {}, {
         stats: _objectSpread(_objectSpread({}, state.stats), {}, {
           health: newHealth
         })
+      });
+
+    case ENEMY_BOOST:
+      var newStat = state.stats[action.stat] * 1.5;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        stats: _objectSpread(_objectSpread({}, state.stats), {}, _defineProperty({}, action.stat, newStat))
       });
 
     default:
@@ -450,6 +561,7 @@ function configureStore() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_playerBoost": () => (/* binding */ _playerBoost),
 /* harmony export */   "_playerTakeDamage": () => (/* binding */ _playerTakeDamage),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -476,32 +588,42 @@ var initState = {
     name: "Hydro Pump",
     type: "water",
     cat: "specialDef",
-    power: 160
+    power: 110
   }, {
     name: "Bite",
     type: "dark",
     cat: "def",
-    power: 110
+    power: 60
   }, {
     name: "Water Pulse",
     type: "water",
     cat: "specialDef",
-    power: 140
+    power: 80
   }, {
     name: "Iron Defense",
     type: "steel",
     cat: "boost",
+    stat: "def",
     power: 0
-  }]
+  }],
+  weak: ["grass", "electric"],
+  strong: ["fire", "water"]
 }; // action types
 
-var PLAYER_TAKE_DAMAGE = "PLAYER_TAKE_DAMAGE"; // action creators
+var PLAYER_TAKE_DAMAGE = "PLAYER_TAKE_DAMAGE";
+var PLAYER_BOOST = "PLAYER_BOOST"; // action creators
 
 var _playerTakeDamage = function _playerTakeDamage(enemy, moveIdx) {
   return {
     type: PLAYER_TAKE_DAMAGE,
     enemy: enemy,
     moveIdx: moveIdx
+  };
+};
+var _playerBoost = function _playerBoost(stat) {
+  return {
+    type: PLAYER_BOOST,
+    stat: stat
   };
 }; // reducer 
 
@@ -513,12 +635,34 @@ var _playerTakeDamage = function _playerTakeDamage(enemy, moveIdx) {
     case PLAYER_TAKE_DAMAGE:
       var enemy = action.enemy;
       var move = enemy.moves[action.moveIdx];
-      var newHealth; // check and see if stat boosting move
+      var newHealth;
+      var STAB = 1;
+      var superEff = 1;
+      var defenseRatio = 1; // check and see if stat boosting move
 
       if (move.cat === "boost") {
         newHealth = state.stats.health;
+        state.stats[move.stat] = 1.5 * state.stats[move.stat];
       } else {
-        newHealth = state.stats.health - (move.power - state.stats[move.cat]);
+        // actual damage calc
+        if (enemy.type === move.type) {
+          STAB = 1.5;
+        }
+
+        if (state.weak.includes(move.type)) {
+          superEff = 2;
+        } else if (state.strong.includes(move.type)) {
+          superEff = 0.5;
+        }
+
+        if (move.cat === "def") {
+          defenseRatio = enemy.stats.atk / state.stats.def;
+        } else {
+          defenseRatio = enemy.stats.specialAtk / state.stats.specialDef;
+        }
+
+        var damage = 2 * (50 / 5) * move.power * defenseRatio / 50 * STAB * superEff;
+        newHealth = state.stats.health - damage;
       } // make sure cant do negative damage or go below zero
 
 
@@ -526,13 +670,21 @@ var _playerTakeDamage = function _playerTakeDamage(enemy, moveIdx) {
         newHealth = state.stats.health;
       } else if (newHealth < 0) {
         newHealth = 0;
-      } // return state
+      } // no decimal health
 
+
+      newHealth = Math.floor(newHealth); // return state
 
       return _objectSpread(_objectSpread({}, state), {}, {
         stats: _objectSpread(_objectSpread({}, state.stats), {}, {
           health: newHealth
         })
+      });
+
+    case PLAYER_BOOST:
+      var newStat = state.stats[action.stat] * 1.5;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        stats: _objectSpread(_objectSpread({}, state.stats), {}, _defineProperty({}, action.stat, newStat))
       });
 
     default:
