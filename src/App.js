@@ -5,6 +5,7 @@ import PlayerStats from "./components/PlayerStats";
 import EnemyStats from "./components/EnemyStats";
 import PlayerActions from "./components/PlayerActions";
 import PlayerMoves from "./components/PlayerMoves";
+import Animation from "./components/Animation";
 import { _playerTakeDamage, _playerBoost } from "./store/player";
 import TypedText from "./components/TypedText";
 import { _enemyTakeDamage, _enemyBoost } from "./store/enemy";
@@ -17,6 +18,7 @@ function App(){
     const [revealedLetters, setRevealedLetters] = React.useState(0)
     const [waiting, setWaiting] = React.useState(false)
     const [battleState, setBattle] = React.useState(1)
+    const [animation, setAnimation] = React.useState("")
     
     const player = useSelector(state => state.player)
     const enemy = useSelector(state => state.enemy)
@@ -66,7 +68,9 @@ function App(){
         changeView()
         setStatusText(`${player.name} used ${player.moves[moveNum].name}!`)
         resetReveal()
-        await wait(3000)
+        setAnimation(`${player.moves[moveNum].name}`)
+        await wait(4000)
+        setAnimation("")
         setBattle(2)
     }
 
@@ -102,7 +106,9 @@ function App(){
             <EnemyStats/>
             <img className="player-sprite" src="https://img.pokemondb.net/sprites/black-white/back-normal/blastoise.png" alt="Blastoise"></img>
             <img onClick={enemyAttacks} className="enemy-sprite" src="https://img.pokemondb.net/sprites/black-white/normal/charizard.png" alt="Charizard"></img>
-            <div className="battle-animation">Animation goes here later</div>
+            <div className="battle-animation">
+                {animation ? <Animation move={animation}/> : <div></div>}
+            </div>
         </div>
         <div id="text-section">
             <div className="status-box">

@@ -86,12 +86,12 @@
 }
 
 .battle-animation {
-  height: 10%;
-  width: 10%;
+  height: 30vh;
+  width: 50vh;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 4px black solid
+  top: 20vh;
+  left: 40%;
+  border: 1px black solid
 }
 
 /* stats content */
@@ -182,3 +182,26 @@
 }
 
 /* Animation Testing */
+
+.square {
+  height: 30px;
+  width: 30px;
+  background-color: red;
+}
+
+.hydro-ball-1, .hydro-ball-2{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position:absolute;
+}
+
+.layer1 {
+  bottom: 0;
+  left: 0;
+}
+
+.layer2 {
+  bottom: 10vh;
+  left: 0;
+}
