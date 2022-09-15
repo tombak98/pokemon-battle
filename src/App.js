@@ -10,34 +10,62 @@ import { _playerTakeDamage, _playerBoost } from "./store/player";
 import TypedText from "./components/TypedText";
 import { _enemyTakeDamage, _enemyBoost } from "./store/enemy";
 import anime from "animejs/lib/anime.es.js";
+import Player from "./components/Player";
 
 function App(){
 
+    // state management
     const [toggleOptions, setToggleOptions] = React.useState(true)
-    const [statusText, setStatusText] = React.useState("Charizard wants to Battle!")
+    const [statusText, setStatusText] = React.useState("")
     const [revealedLetters, setRevealedLetters] = React.useState(0)
     const [waiting, setWaiting] = React.useState(false)
     const [battleState, setBattle] = React.useState(1)
     const [animation, setAnimation] = React.useState("testing mode")
+    const [audio, setAudio] = React.useState('https://vgmsite.com/soundtracks/pokemon-firered-leafgreen-enhanced-soundtrack/iueoobedzt/11%20Trainer%20Battle%21.mp3')
     
     const player = useSelector(state => state.player)
     const enemy = useSelector(state => state.enemy)
     const dispatch = useDispatch()
 
+    // animations
     const enemySprite = document.getElementsByClassName('enemy-sprite')
     const playerSprite = document.getElementsByClassName('player-sprite')
+    const playerStatBox = document.getElementsByClassName('player')
+    const enemyStatBox = document.getElementsByClassName('enemy')
 
-    function enemyAttacks() {
-        let randNum = Math.floor(Math.random()*4)
-        if (enemy.moves[randNum].cat === "boost") {
-            dispatch(_enemyBoost(enemy.moves[randNum].stat))
-        } else {
-            dispatch(_playerTakeDamage(enemy,randNum))
-        }
-        setStatusText(`${enemy.name} used ${enemy.moves[randNum].name}!`)
+    React.useEffect(()=>{
+        anime({
+            targets: [enemySprite],
+            translateX: ['60vw',0],
+            duration: 3000,
+            easing: "linear"
+        })
+        anime({
+            targets: [playerSprite],
+            translateX: ['-60vw',0],
+            duration: 3000,
+            easing: "linear"
+        })
+        anime({
+            targets: [playerStatBox],
+            translateX: ['60vw',0],
+            duration: 1000,
+            delay: 2000,
+            easing: "linear"
+        })
+        anime({
+            targets: [enemyStatBox],
+            translateX: ['-60vw',0],
+            duration: 1000,
+            delay: 2000,
+            easing: "linear"
+        })
+        wait(4000)
+        setStatusText("Charizard wants to Battle!")
         resetReveal()
-        setAnimation(enemy.moves[randNum].name)
-    }
+    },[])
+
+    // helper functions
 
     function changeView() {
         setToggleOptions(!toggleOptions)
@@ -60,6 +88,20 @@ function App(){
           }, ms )
         })
       }  
+
+    // battle related
+
+    function enemyAttacks() {
+        let randNum = Math.floor(Math.random()*4)
+        if (enemy.moves[randNum].cat === "boost") {
+            dispatch(_enemyBoost(enemy.moves[randNum].stat))
+        } else {
+            dispatch(_playerTakeDamage(enemy,randNum))
+        }
+        setStatusText(`${enemy.name} used ${enemy.moves[randNum].name}!`)
+        resetReveal()
+        setAnimation(enemy.moves[randNum].name)
+    }
 
     async function battleSequence(event) {
         event.preventDefault()
@@ -123,8 +165,9 @@ function App(){
         <div id="battle-scene">
             <PlayerStats/>
             <EnemyStats/>
-            <img className="player-sprite" src="https://img.pokemondb.net/sprites/black-white/back-normal/blastoise.png" alt="Blastoise"></img>
-            <img onClick={enemyAttacks} className="enemy-sprite" src="https://img.pokemondb.net/sprites/black-white/normal/charizard.png" alt="Charizard"></img>
+            <Player url={audio}/>
+            <img className="player-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/back-normal/blastoise.gif" alt="Blastoise"></img>
+            <img className="enemy-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/normal/charizard.gif" alt="Charizard"></img>
             <div className="battle-animation">
                 {animation ? <Animation move={animation}/> : <div></div>}
             </div>
