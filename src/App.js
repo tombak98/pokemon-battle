@@ -33,7 +33,7 @@ function App(){
     const playerStatBox = document.getElementsByClassName('player')
     const enemyStatBox = document.getElementsByClassName('enemy')
 
-    React.useEffect(()=>{
+    React.useEffect(async()=>{
         anime({
             targets: [enemySprite],
             translateX: ['60vw',0],
@@ -60,7 +60,7 @@ function App(){
             delay: 2000,
             easing: "linear"
         })
-        wait(4000)
+        await wait(4000)
         setStatusText("Charizard wants to Battle!")
         resetReveal()
     },[])

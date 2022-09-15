@@ -1432,37 +1432,51 @@ function App() {
   var playerSprite = document.getElementsByClassName('player-sprite');
   var playerStatBox = document.getElementsByClassName('player');
   var enemyStatBox = document.getElementsByClassName('enemy');
-  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
-    (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
-      targets: [enemySprite],
-      translateX: ['60vw', 0],
-      duration: 3000,
-      easing: "linear"
-    });
-    (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
-      targets: [playerSprite],
-      translateX: ['-60vw', 0],
-      duration: 3000,
-      easing: "linear"
-    });
-    (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
-      targets: [playerStatBox],
-      translateX: ['60vw', 0],
-      duration: 1000,
-      delay: 2000,
-      easing: "linear"
-    });
-    (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
-      targets: [enemyStatBox],
-      translateX: ['-60vw', 0],
-      duration: 1000,
-      delay: 2000,
-      easing: "linear"
-    });
-    wait(4000);
-    setStatusText("Charizard wants to Battle!");
-    resetReveal();
-  }, []); // helper functions
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
+              targets: [enemySprite],
+              translateX: ['60vw', 0],
+              duration: 3000,
+              easing: "linear"
+            });
+            (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
+              targets: [playerSprite],
+              translateX: ['-60vw', 0],
+              duration: 3000,
+              easing: "linear"
+            });
+            (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
+              targets: [playerStatBox],
+              translateX: ['60vw', 0],
+              duration: 1000,
+              delay: 2000,
+              easing: "linear"
+            });
+            (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
+              targets: [enemyStatBox],
+              translateX: ['-60vw', 0],
+              duration: 1000,
+              delay: 2000,
+              easing: "linear"
+            });
+            _context.next = 6;
+            return wait(4000);
+
+          case 6:
+            setStatusText("Charizard wants to Battle!");
+            resetReveal();
+
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), []); // helper functions
 
   function changeView() {
     setToggleOptions(!toggleOptions);
@@ -1508,11 +1522,11 @@ function App() {
   }
 
   function _battleSequence() {
-    _battleSequence = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+    _battleSequence = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(event) {
       var moveNum;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               event.preventDefault();
               moveNum = event.target.getAttribute('index');
@@ -1527,7 +1541,7 @@ function App() {
               setStatusText("".concat(player.name, " used ").concat(player.moves[moveNum].name, "!"));
               resetReveal();
               setAnimation("".concat(player.moves[moveNum].name));
-              _context2.next = 9;
+              _context3.next = 9;
               return wait(4000);
 
             case 9:
@@ -1536,10 +1550,10 @@ function App() {
 
             case 11:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
     return _battleSequence.apply(this, arguments);
   }
@@ -1550,18 +1564,18 @@ function App() {
     }
 
     function _continueBattle() {
-      _continueBattle = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
+      _continueBattle = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(battleState === 2)) {
-                  _context.next = 16;
+                  _context2.next = 16;
                   break;
                 }
 
                 if (!(enemy.stats.health === 0)) {
-                  _context.next = 7;
+                  _context2.next = 7;
                   break;
                 }
 
@@ -1574,12 +1588,12 @@ function App() {
                   easing: "linear",
                   duration: 300
                 });
-                _context.next = 14;
+                _context2.next = 14;
                 break;
 
               case 7:
                 enemyAttacks();
-                _context.next = 10;
+                _context2.next = 10;
                 return wait(4000);
 
               case 10:
@@ -1589,7 +1603,7 @@ function App() {
                 resetReveal();
 
               case 14:
-                _context.next = 17;
+                _context2.next = 17;
                 break;
 
               case 16:
@@ -1611,10 +1625,10 @@ function App() {
 
               case 17:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
       return _continueBattle.apply(this, arguments);
     }
