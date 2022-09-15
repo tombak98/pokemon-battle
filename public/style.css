@@ -6,6 +6,9 @@
 #battle-scene {
   height: 70vh;
   position: relative;
+  background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-size: cover
 }
 
 #text-section {
@@ -54,6 +57,7 @@
   width: 30%;
   border: solid 5px black;
   position: absolute;
+  background-color: white;
 }
 
 .enemy {
@@ -91,7 +95,7 @@
   position: absolute;
   top: 20vh;
   left: 40%;
-  border: 1px black solid
+  border: 0px black solid
 }
 
 /* stats content */
@@ -117,35 +121,41 @@
 
 /* colors */
 .fire {
-  background-color: rgb(251, 118, 118);
+  background-color: rgb(254, 78, 78);
 }
 
 .fire:hover{
-  background-color: rgb(255, 77, 77);
+  background-color: rgb(220, 47, 47);
+}
+
+.orange{
+  background-color: orange;
 }
 
 .water {
-  background-color: rgb(103, 230, 247);
+  background-color: rgb(78, 75, 247);
+  color: white
 }
 
 .water:hover {
-  background-color: rgb(41, 219, 242);
+  background-color: rgb(65, 63, 213);
+  color: white
 }
 
 .grass {
-  background-color: rgb(138, 254, 138);
+  background-color: rgb(55, 231, 55);
 }
 
 .grass:hover {
-  background-color: rgb(77, 254, 77);
+  background-color: rgb(71, 228, 71);
 }
 
 .electric {
-  background-color: rgb(254, 254, 148);
+  background-color: rgb(255, 255, 59);
 }
 
 .electric:hover {
-  background-color: rgb(252, 252, 80);
+  background-color: rgb(222, 222, 48);
 }
 
 .dark {
@@ -181,8 +191,12 @@
   background-color: rgb(181, 181, 181)
 }
 
+/*                   */
 /* Animation Testing */
+/*                   */
 
+
+/* hydro pump */
 .square {
   height: 30px;
   width: 30px;
@@ -204,4 +218,145 @@
 .layer2 {
   bottom: 10vh;
   left: 0;
+}
+
+/* bite */
+#upper-jaw {
+  display: flex;
+  width: 15vw;
+  height: 50px;
+  border-top: 3px solid rgb(224, 224, 224);
+  position: absolute;
+  right: -10vw;
+  top: -10vh;
+  justify-content: space-around;
+}
+
+#lower-jaw {
+  display: flex;
+  width: 15vw;
+  height: 50px;
+  border-bottom: 3px solid rgb(224, 224, 224);
+  position: absolute;
+  right: -10vw;
+  top: 10vh;
+  justify-content: space-around;
+}
+
+.tooth-up {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 50px solid rgb(224, 224, 224);
+}
+
+.tooth-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 50px solid rgb(224, 224, 224);
+}
+
+/* water pulse */
+ .pulse1, .pulse2, .pulse3, .pulse4 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+ }
+
+ .pulse1 {
+  top: 10vh;
+  left: 4vh;
+ }
+
+ .pulse2 {
+  top: 14vh;
+  left: 0;
+ }
+
+ .pulse3 {
+  top: 18vh;
+  left: 4vh
+ }
+
+ .pulse4 {
+  top: 14vh;
+  left: 8vh;
+ }
+
+ /* Iron Defense */
+
+ .defense {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  border: 3px black solid;
+  opacity: 0;
+  position: absolute;
+  top: 14vh;
+  left: -10vw;
+ }
+
+ /* Fire Blast */
+.blast-orb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  top: 2vh;
+}
+
+/* Scratch */
+
+.scratch {
+  position: absolute;
+  width: 10vw;
+  height: 20px;
+  background-color: rgb(242, 255, 0);
+  border: 2px rgb(255, 196, 0) solid;
+  opacity: 0;
+}
+
+.rect1 {
+  top: 10vh;
+  left: -7vw;
+}
+
+.rect2 {
+  top: 12vh;
+  left: -12.5vw;
+  width: 15vw;
+}
+
+.rect3 {
+  top: 14vh;
+  left: -13vw;
+}
+
+/* Swords Dance */
+
+.sword {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 90px solid rgb(253, 38, 38);
+  position: absolute;
+  top: 0
+}
+
+.sword1 {
+  right: -5vw
+}
+
+.sword2 {
+  right: -13vw
+}
+
+.sword3 {
+  right: 3vw
 }

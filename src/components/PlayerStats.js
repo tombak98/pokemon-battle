@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { _playerTakeDamage } from "../store/player";
+import anime from "animejs/lib/anime.es.js";
 
 const PlayerStats = () => {
     const player = useSelector(state => state.player)
@@ -24,6 +25,7 @@ const PlayerStats = () => {
             return "grass"
         }
     }
+
 
     // React.useEffect(()=>{
     //     console.log(player)

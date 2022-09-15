@@ -9,7 +9,7 @@ import Animation from "./components/Animation";
 import { _playerTakeDamage, _playerBoost } from "./store/player";
 import TypedText from "./components/TypedText";
 import { _enemyTakeDamage, _enemyBoost } from "./store/enemy";
-
+import anime from "animejs/lib/anime.es.js";
 
 function App(){
 
@@ -18,11 +18,14 @@ function App(){
     const [revealedLetters, setRevealedLetters] = React.useState(0)
     const [waiting, setWaiting] = React.useState(false)
     const [battleState, setBattle] = React.useState(1)
-    const [animation, setAnimation] = React.useState("")
+    const [animation, setAnimation] = React.useState("testing mode")
     
     const player = useSelector(state => state.player)
     const enemy = useSelector(state => state.enemy)
     const dispatch = useDispatch()
+
+    const enemySprite = document.getElementsByClassName('enemy-sprite')
+    const playerSprite = document.getElementsByClassName('player-sprite')
 
     function enemyAttacks() {
         let randNum = Math.floor(Math.random()*4)
@@ -33,6 +36,7 @@ function App(){
         }
         setStatusText(`${enemy.name} used ${enemy.moves[randNum].name}!`)
         resetReveal()
+        setAnimation(enemy.moves[randNum].name)
     }
 
     function changeView() {
@@ -80,9 +84,17 @@ function App(){
                 if (enemy.stats.health === 0) {
                     setStatusText(`${enemy.name} fainted! You win!`)
                     resetReveal()
+                    anime({
+                        targets: enemySprite,
+                        translateY: '10vh',
+                        opacity: 0,
+                        easing: "linear",
+                        duration: 300,
+                    })
                 } else {
                     enemyAttacks()
-                    await wait(3000)
+                    await wait(4000)
+                    setAnimation("")
                     setBattle(3)
                     setStatusText(`${player.name} is waiting for your orders!`)
                     resetReveal()
@@ -91,6 +103,13 @@ function App(){
                 if (player.stats.health == 0) {
                     setStatusText(`${player.name} fained! You whited out!`)
                     resetReveal()
+                    anime({
+                        targets: playerSprite,
+                        translateY: '10vh',
+                        opacity: 0,
+                        easing: "linear",
+                        duration: 300,
+                    })
                 } else {
                     setBattle(1)
                 }
@@ -112,7 +131,7 @@ function App(){
         </div>
         <div id="text-section">
             <div className="status-box">
-                <TypedText updateReveal={updateReveal} revealedLetters={revealedLetters} children={statusText} delay={20}/>
+                <TypedText updateReveal={updateReveal} revealedLetters={revealedLetters} children={statusText} delay={30}/>
             </div>
             <div className="player-options">
                 {waiting ? <div className="option">Waiting...</div> : 

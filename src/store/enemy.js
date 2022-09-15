@@ -20,8 +20,8 @@ const initState = {
             power: 110
         },
         {
-            name: "Wing Attack",
-            type: "flying",
+            name: "Headbutt",
+            type: "normal",
             cat: "def",
             power: 60
         },
