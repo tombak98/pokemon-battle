@@ -100,8 +100,8 @@
 
 button {
   position: absolute;
-  top: 30px;
-  left: 35vw;
+  bottom: 5vh;
+  left: 2vw;
   height: 5vh;
   width: 5vw
 }
@@ -202,6 +202,47 @@ button {
 /*                   */
 /* Animation Testing */
 /*                   */
+
+/* black barrier */
+
+#intro {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-right, .intro-left {
+  position: absolute;
+  width: 100vw;
+  height: 25vh;
+  background-color: black;
+  z-index: 1;
+  left: 0;
+  right: 0;
+}
+
+.one {
+  top: 0
+}
+
+.two {
+  top: 25vh
+}
+
+.three {
+  top: 50vh
+}
+
+.four {
+  top: 75vh
+}
 
 
 /* hydro pump */

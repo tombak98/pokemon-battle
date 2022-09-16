@@ -35,32 +35,46 @@ function App(){
 
     React.useEffect(async()=>{
         anime({
+            targets: ".intro-right",
+            translateX: [
+                {value: '100vw', duration: 5000}
+            ],
+            easing: "linear"
+        })
+        anime({
+            targets: ".intro-left",
+            translateX: [
+                {value: '-100vw', duration: 5000}
+            ],
+            easing: "linear"
+        })
+        anime({
             targets: [enemySprite],
-            translateX: ['60vw',0],
-            duration: 3000,
+            translateX: ['160vw',0],
+            duration: 8000,
             easing: "linear"
         })
         anime({
             targets: [playerSprite],
-            translateX: ['-60vw',0],
-            duration: 3000,
+            translateX: ['-160vw',0],
+            duration: 8000,
             easing: "linear"
         })
         anime({
             targets: [playerStatBox],
-            translateX: ['60vw',0],
-            duration: 1000,
-            delay: 2000,
+            translateX: ['120vw',0],
+            duration: 2000,
+            delay: 6000,
             easing: "linear"
         })
         anime({
             targets: [enemyStatBox],
-            translateX: ['-60vw',0],
-            duration: 1000,
-            delay: 2000,
+            translateX: ['-120vw',0],
+            duration: 2000,
+            delay: 6000,
             easing: "linear"
         })
-        await wait(4000)
+        await wait(8000)
         setStatusText("Charizard wants to Battle!")
         resetReveal()
     },[])
@@ -162,10 +176,13 @@ function App(){
 
     return(
         <>
+        <div className="intro-left one"></div>
+        <div className="intro-right two"></div>
+        <div className="intro-left three"></div>
+        <div className="intro-right four"></div>
         <div id="battle-scene">
             <PlayerStats/>
             <EnemyStats/>
-            <Player url={audio}/>
             <img className="player-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/back-normal/blastoise.gif" alt="Blastoise"></img>
             <img className="enemy-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/normal/charizard.gif" alt="Charizard"></img>
             <div className="battle-animation">
@@ -173,6 +190,7 @@ function App(){
             </div>
         </div>
         <div id="text-section">
+            <Player url={audio}/>
             <div className="status-box">
                 <TypedText updateReveal={updateReveal} revealedLetters={revealedLetters} children={statusText} delay={30}/>
             </div>

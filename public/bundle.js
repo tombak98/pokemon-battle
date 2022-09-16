@@ -1438,39 +1438,55 @@ function App() {
         switch (_context.prev = _context.next) {
           case 0:
             (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
+              targets: ".intro-right",
+              translateX: [{
+                value: '100vw',
+                duration: 5000
+              }],
+              easing: "linear"
+            });
+            (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
+              targets: ".intro-left",
+              translateX: [{
+                value: '-100vw',
+                duration: 5000
+              }],
+              easing: "linear"
+            });
+            (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
               targets: [enemySprite],
-              translateX: ['60vw', 0],
-              duration: 3000,
+              translateX: ['160vw', 0],
+              duration: 8000,
               easing: "linear"
             });
             (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
               targets: [playerSprite],
-              translateX: ['-60vw', 0],
-              duration: 3000,
+              translateX: ['-160vw', 0],
+              duration: 8000,
               easing: "linear"
             });
             (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
               targets: [playerStatBox],
-              translateX: ['60vw', 0],
-              duration: 1000,
-              delay: 2000,
+              translateX: ['120vw', 0],
+              duration: 2000,
+              delay: 6000,
               easing: "linear"
             });
             (0,animejs_lib_anime_es_js__WEBPACK_IMPORTED_MODULE_10__["default"])({
               targets: [enemyStatBox],
-              translateX: ['-60vw', 0],
-              duration: 1000,
-              delay: 2000,
+              translateX: ['-120vw', 0],
+              duration: 2000,
+              delay: 6000,
               easing: "linear"
             });
-            _context.next = 6;
-            return wait(4000);
+            _context.next = 8;
+            return wait(8000);
 
-          case 6:
+          case 8:
             setStatusText("Charizard wants to Battle!");
             resetReveal();
 
-          case 8:
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -1636,10 +1652,16 @@ function App() {
     continueBattle();
   }, [battleState]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "intro-left one"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "intro-right two"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "intro-left three"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "intro-right four"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "battle-scene"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Player__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    url: audio
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     className: "player-sprite",
     src: "https://img.pokemondb.net/sprites/black-white/anim/back-normal/blastoise.gif",
     alt: "Blastoise"
@@ -1653,7 +1675,9 @@ function App() {
     move: animation
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "text-section"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Player__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    url: audio
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "status-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TypedText__WEBPACK_IMPORTED_MODULE_8__["default"], {
     updateReveal: updateReveal,
