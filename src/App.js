@@ -248,7 +248,7 @@ function App(){
             </div>
             <div className="player-options">
                 {waiting ? <div className="option">Waiting...</div> : 
-                (toggleOptions ? <PlayerActions changeView={changeView}/>
+                (toggleOptions ? <PlayerActions changeView={changeView} setStatusText={setStatusText} resetReveal={resetReveal}/>
                 :<PlayerMoves resetReveal={resetReveal} setStatusText={setStatusText} 
                 changeView={changeView} wait={wait} enemyAttacks={enemyAttacks}
                 battleSequence={battleSequence}/>)
