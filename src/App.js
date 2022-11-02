@@ -11,6 +11,7 @@ import TypedText from "./components/TypedText";
 import { _enemyTakeDamage, _enemyBoost } from "./store/enemy";
 import anime from "animejs/lib/anime.es.js";
 import Player from "./components/Player";
+import useSound from "use-sound";
 
 function App(){
 
@@ -32,6 +33,21 @@ function App(){
     const playerSprite = document.getElementsByClassName('player-sprite')
     const playerStatBox = document.getElementsByClassName('player')
     const enemyStatBox = document.getElementsByClassName('enemy')
+
+    //sound effects
+    const [play1] = useSound('/sounds/powerup.mp3', {volume: 0.50})
+    const [play2] = useSound('/sounds/hydropump.mp3', {volume: 0.50})
+    const [play3] = useSound('/sounds/bite.mp3', {volume: 0.50})
+    const [play4] = useSound('/sounds/blip.mp3', {volume: 0.50})
+    const [play5] = useSound('/sounds/bubble.mp3', {volume: 0.50})
+    const [play6] = useSound('/sounds/death.mp3', {volume: 0.50})
+    const [play7] = useSound('/sounds/fireblast.mp3', {volume: 0.50})
+    const [play8] = useSound('/sounds/headbutt.mp3', {volume: 0.50})
+    const [play9] = useSound('/sounds/otherbite.mp3', {volume: 0.50})
+    const [play10] = useSound('/sounds/potion.mp3', {volume: 0.50})
+    const [play11] = useSound('/sounds/powerup.mp3', {volume: 0.50})
+    const [play12] = useSound('/sounds/victory.mp3', {volume: 0.50})
+
 
     React.useEffect(async()=>{
         anime({
@@ -101,7 +117,41 @@ function App(){
             resolve(ms)
           }, ms )
         })
-      }  
+      }
+      
+    function soundEffect(moveName) {
+        if (moveName === "Hydro Pump") {
+            play2()
+        } else if (moveName === "Bite") {
+            play3()
+        } else if (moveName === "Water Pulse") {
+            play5()
+            setTimeout(()=>{
+                play5()
+            }, 1600)
+            setTimeout(()=>{
+                play5()
+            }, 1700)
+            setTimeout(()=>{
+                play5()
+            }, 1900)
+            setTimeout(()=>{
+                play5()
+            }, 2000)
+        } else if (moveName === "Iron Defense") {
+            play1()
+        } else if (moveName === "Fire Blast") {
+            play7()
+        } else if (moveName === "Headbutt") {
+            setTimeout(()=>{
+                play8()
+            }, 800)
+        } else if (moveName === "Scratch") {
+            play3()
+        } else if (moveName === "Swords Dance") {
+            play1()
+        }
+    }
 
     // battle related
 
@@ -113,6 +163,7 @@ function App(){
             dispatch(_playerTakeDamage(enemy,randNum))
         }
         setStatusText(`${enemy.name} used ${enemy.moves[randNum].name}!`)
+        soundEffect(`${enemy.moves[randNum].name}`)
         resetReveal()
         setAnimation(enemy.moves[randNum].name)
     }
@@ -128,6 +179,7 @@ function App(){
         changeView()
         setStatusText(`${player.name} used ${player.moves[moveNum].name}!`)
         resetReveal()
+        soundEffect(`${player.moves[moveNum].name}`)
         setAnimation(`${player.moves[moveNum].name}`)
         await wait(4000)
         setAnimation("")

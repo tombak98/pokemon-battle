@@ -1,5 +1,6 @@
 import React from "react";
 import anime from "animejs/lib/anime.es.js";
+import useSound from "use-sound";
 
 const IronDefense = () => {
 
@@ -15,6 +16,7 @@ const IronDefense = () => {
         duration: 1500,
         easing: "easeOutCubic"
     })
+
 
     return (
         <div className="defense steel"></div>

@@ -1,5 +1,6 @@
 import React from "react";
 import anime from "animejs/lib/anime.es.js";
+import useSound from "use-sound";
 
 const FireBlast = () => {
 

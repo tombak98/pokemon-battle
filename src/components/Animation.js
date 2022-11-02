@@ -8,9 +8,10 @@ import FireBlast from "./sub-animations/FireBlast";
 import Headbutt from "./sub-animations/Headbutt";
 import Scratch from "./sub-animations/Scratch";
 import SwordsDance from "./sub-animations/SwordsDance";
+import useSound from "use-sound";
 
 const Animation = (props) => {
-    
+
     if (props.move === "Hydro Pump") {
         return <HydroPump/>
     } else if (props.move === "Bite") {
