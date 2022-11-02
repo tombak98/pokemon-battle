@@ -4,7 +4,7 @@
 }
 
 #battle-scene {
-  height: 70vh;
+  height: 68vh;
   position: relative;
   background-image: url('background.png');
   background-repeat: no-repeat;
@@ -12,7 +12,7 @@
 }
 
 #text-section {
-  height: 30vh;
+  height: 28vh;
   display: flex;
   align-items: center;
   padding: 8px;

@@ -10,7 +10,6 @@ import { _playerTakeDamage, _playerBoost } from "./store/player";
 import TypedText from "./components/TypedText";
 import { _enemyTakeDamage, _enemyBoost } from "./store/enemy";
 import anime from "animejs/lib/anime.es.js";
-import Player from "./components/Player";
 import useSound from "use-sound";
 
 function App(){
@@ -23,6 +22,7 @@ function App(){
     const [battleState, setBattle] = React.useState(1)
     const [animation, setAnimation] = React.useState("testing mode")
     const [audio, setAudio] = React.useState('https://vgmsite.com/soundtracks/pokemon-firered-leafgreen-enhanced-soundtrack/iueoobedzt/11%20Trainer%20Battle%21.mp3')
+    const [playingMusic, setPlayingMusic] = React.useState(false)
     
     const player = useSelector(state => state.player)
     const enemy = useSelector(state => state.enemy)
@@ -35,6 +35,7 @@ function App(){
     const enemyStatBox = document.getElementsByClassName('enemy')
 
     //sound effects
+    const [battleMusic, {stop}] = useSound('/sounds/battle.mp3', {volume: 0.1})
     const [play1] = useSound('/sounds/powerup.mp3', {volume: 0.50})
     const [play2] = useSound('/sounds/hydropump.mp3', {volume: 0.50})
     const [play3] = useSound('/sounds/bite.mp3', {volume: 0.50})
@@ -46,7 +47,7 @@ function App(){
     const [play9] = useSound('/sounds/otherbite.mp3', {volume: 0.50})
     const [play10] = useSound('/sounds/potion.mp3', {volume: 0.50})
     const [play11] = useSound('/sounds/powerup.mp3', {volume: 0.50})
-    const [play12] = useSound('/sounds/victory.mp3', {volume: 0.50})
+    const [play12] = useSound('/sounds/victory.mp3', {volume: 0.1})
 
 
     React.useEffect(async()=>{
@@ -199,6 +200,8 @@ function App(){
                         easing: "linear",
                         duration: 300,
                     })
+                    stop()
+                    play12()
                 } else {
                     enemyAttacks()
                     await wait(4000)
@@ -242,7 +245,12 @@ function App(){
             </div>
         </div>
         <div id="text-section">
-            <Player url={audio}/>
+            <div style={playingMusic ? {display: 'none'} : {display: 'block'}}>
+                <button onClick={()=>{
+                    battleMusic()
+                    setPlayingMusic(true)
+                }}>Play Music</button>
+            </div>
             <div className="status-box">
                 <TypedText updateReveal={updateReveal} revealedLetters={revealedLetters} children={statusText} delay={30}/>
             </div>
