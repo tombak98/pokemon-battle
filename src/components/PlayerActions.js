@@ -8,10 +8,13 @@ const PlayerActions = (props) => {
   return (
     <>
       <div onClick={()=>{
-        props.changeView()
+        props.changeView('attacks')
         play()
         }} className="option fire">Fight</div>
-      <div onClick={play} className="option electric">Bag</div>
+      <div onClick={()=>{
+        props.changeView('bag')
+        play()
+        }} className="option electric">Bag</div>
       <div onClick={()=>{
         play()
         props.setStatusText('You have no other pokemon to send out!')

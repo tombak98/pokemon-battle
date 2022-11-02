@@ -53,6 +53,7 @@ const initState = {
 
 const PLAYER_TAKE_DAMAGE = "PLAYER_TAKE_DAMAGE"
 const PLAYER_BOOST = "PLAYER_BOOST"
+const PLAYER_ITEM = "PLAYER_ITEM"
 
 // action creators
 
@@ -68,6 +69,13 @@ export const _playerBoost = (stat) => {
     return {
         type: PLAYER_BOOST,
         stat: stat
+    }
+}
+
+export const _playerPotion = (amount) => {
+    return {
+        type: PLAYER_ITEM,
+        amount: amount
     }
 }
 
@@ -129,6 +137,18 @@ export default (state=initState, action) => {
                     [action.stat]: newStat
                 }
             } 
+        case PLAYER_ITEM:
+            let afterHealth = state.stats.health + action.amount
+            if (afterHealth > state.stats.maxHealth) {
+                afterHealth = state.stats.maxHealth
+            }
+            return {
+                ...state,
+                stats: {
+                    ...state.stats,
+                    health: afterHealth
+                }
+            }
         default:
             return state
     }

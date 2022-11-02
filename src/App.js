@@ -6,16 +6,17 @@ import EnemyStats from "./components/EnemyStats";
 import PlayerActions from "./components/PlayerActions";
 import PlayerMoves from "./components/PlayerMoves";
 import Animation from "./components/Animation";
-import { _playerTakeDamage, _playerBoost } from "./store/player";
+import { _playerTakeDamage, _playerBoost, _playerPotion } from "./store/player";
 import TypedText from "./components/TypedText";
 import { _enemyTakeDamage, _enemyBoost } from "./store/enemy";
 import anime from "animejs/lib/anime.es.js";
 import useSound from "use-sound";
+import PlayerItems from "./components/PlayerItems";
 
 function App(){
 
     // state management
-    const [toggleOptions, setToggleOptions] = React.useState(true)
+    const [toggleOptions, setToggleOptions] = React.useState('menu')
     const [statusText, setStatusText] = React.useState("")
     const [revealedLetters, setRevealedLetters] = React.useState(0)
     const [waiting, setWaiting] = React.useState(false)
@@ -23,6 +24,7 @@ function App(){
     const [animation, setAnimation] = React.useState("testing mode")
     const [audio, setAudio] = React.useState('https://vgmsite.com/soundtracks/pokemon-firered-leafgreen-enhanced-soundtrack/iueoobedzt/11%20Trainer%20Battle%21.mp3')
     const [playingMusic, setPlayingMusic] = React.useState(false)
+    const [potions, setPotions] = React.useState([1,1,1])
     
     const player = useSelector(state => state.player)
     const enemy = useSelector(state => state.enemy)
@@ -98,8 +100,8 @@ function App(){
 
     // helper functions
 
-    function changeView() {
-        setToggleOptions(!toggleOptions)
+    function changeView(view) {
+        setToggleOptions(view)
     }
 
     function updateReveal() {
@@ -177,13 +179,34 @@ function App(){
         } else {
             dispatch(_enemyTakeDamage(player,moveNum))
         }
-        changeView()
+        changeView('menu')
         setStatusText(`${player.name} used ${player.moves[moveNum].name}!`)
         resetReveal()
         soundEffect(`${player.moves[moveNum].name}`)
         setAnimation(`${player.moves[moveNum].name}`)
         await wait(4000)
         setAnimation("")
+        setBattle(2)
+    }
+
+    async function potionSequence(event) {
+        event.preventDefault()
+        // insert here
+        dispatch(_playerPotion(parseInt(event.target.getAttribute('value'))))
+        //
+        changeView('menu')
+        let potionName = ''
+        if (event.target.getAttribute('value') === '20') {
+            potionName= ' Potion'
+        } else if (event.target.getAttribute('value') === '50') {
+            potionName = 'Super Potion'
+        } else {
+            potionName = 'Hyper Potion'
+        }
+        setStatusText(`${player.name} used a ${potionName}!`)
+        resetReveal()
+        play10()
+        await wait(4000)
         setBattle(2)
     }
 
@@ -256,10 +279,14 @@ function App(){
             </div>
             <div className="player-options">
                 {waiting ? <div className="option">Waiting...</div> : 
-                (toggleOptions ? <PlayerActions changeView={changeView} setStatusText={setStatusText} resetReveal={resetReveal}/>
-                :<PlayerMoves resetReveal={resetReveal} setStatusText={setStatusText} 
+                (toggleOptions === 'menu' ? <PlayerActions changeView={changeView} setStatusText={setStatusText} resetReveal={resetReveal}/>
+                : (toggleOptions === 'attacks' ? <PlayerMoves resetReveal={resetReveal} setStatusText={setStatusText} 
                 changeView={changeView} wait={wait} enemyAttacks={enemyAttacks}
-                battleSequence={battleSequence}/>)
+                battleSequence={battleSequence}/> : 
+                (toggleOptions === 'bag' ? <PlayerItems 
+                setPotions={setPotions} potions={potions} 
+                potionSequence={potionSequence} changeView={changeView}
+                setStatusText={setStatusText} resetReveal={resetReveal}/> : <></>)))
                 }
             </div>
         </div>
