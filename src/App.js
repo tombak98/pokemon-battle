@@ -153,7 +153,7 @@ function App(){
             setTimeout(()=>{
                 play8()
             }, 1000)
-        } else if (moveName === "Scratch") {
+        } else if (moveName === "Slash") {
             play3()
         } else if (moveName === "Swords Dance") {
             play1()

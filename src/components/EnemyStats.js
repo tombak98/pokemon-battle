@@ -30,7 +30,7 @@ const EnemyStats = () => {
   return (
     <div className="stats enemy">
       <p>
-        Charizard <span>Lvl. 50</span>
+        Charizard <span>Lvl. 100</span>
       </p>
       <div className="health-box">
         <div style={{width:`${enemy.stats.health/enemy.stats.maxHealth*100}%`}} className={"health " + healthIndicator()}></div>

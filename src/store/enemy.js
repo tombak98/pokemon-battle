@@ -4,11 +4,11 @@ const initState = {
     pokeId: 6,
     type: "fire",
     stats: {
-        health: 147,
-        maxHealth: 147,
-        atk: 103,
+        health: 500,
+        maxHealth: 500,
+        atk: 175,
         def: 97,
-        specialAtk: 129,
+        specialAtk: 150,
         specialDef: 105,
         speed: 118
     },
@@ -26,10 +26,10 @@ const initState = {
             power: 60
         },
         {
-            name: "Scratch",
+            name: "Slash",
             type: "normal",
             cat: "def",
-            power: 30
+            power: 90
         },
         {
             name: "Swords Dance",

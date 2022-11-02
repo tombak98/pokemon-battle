@@ -24,7 +24,7 @@ const Animation = (props) => {
         return <FireBlast/>
     } else if (props.move === "Headbutt") {
         return <Headbutt/>
-    } else if (props.move === "Scratch") {
+    } else if (props.move === "Slash") {
         return <Scratch/>
     } else if (props.move === "Swords Dance") {
         return <SwordsDance/>

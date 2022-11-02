@@ -1665,7 +1665,7 @@ function App() {
       setTimeout(function () {
         play8();
       }, 1000);
-    } else if (moveName === "Scratch") {
+    } else if (moveName === "Slash") {
       play3();
     } else if (moveName === "Swords Dance") {
       play1();
@@ -1980,7 +1980,7 @@ var Animation = function Animation(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_sub_animations_FireBlast__WEBPACK_IMPORTED_MODULE_6__["default"], null);
   } else if (props.move === "Headbutt") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_sub_animations_Headbutt__WEBPACK_IMPORTED_MODULE_7__["default"], null);
-  } else if (props.move === "Scratch") {
+  } else if (props.move === "Slash") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_sub_animations_Scratch__WEBPACK_IMPORTED_MODULE_8__["default"], null);
   } else if (props.move === "Swords Dance") {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_sub_animations_SwordsDance__WEBPACK_IMPORTED_MODULE_9__["default"], null);
@@ -2038,7 +2038,7 @@ var EnemyStats = function EnemyStats() {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "stats enemy"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Charizard ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Lvl. 50")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Charizard ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "Lvl. 100")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "health-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
@@ -3051,11 +3051,11 @@ var initState = {
   pokeId: 6,
   type: "fire",
   stats: {
-    health: 147,
-    maxHealth: 147,
-    atk: 103,
+    health: 500,
+    maxHealth: 500,
+    atk: 175,
     def: 97,
-    specialAtk: 129,
+    specialAtk: 150,
     specialDef: 105,
     speed: 118
   },
@@ -3070,10 +3070,10 @@ var initState = {
     cat: "def",
     power: 60
   }, {
-    name: "Scratch",
+    name: "Slash",
     type: "normal",
     cat: "def",
-    power: 30
+    power: 90
   }, {
     name: "Swords Dance",
     type: "normal",
