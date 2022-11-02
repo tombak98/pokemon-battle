@@ -1432,6 +1432,34 @@ function App() {
       potions = _React$useState18[0],
       setPotions = _React$useState18[1];
 
+  var _React$useState19 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false),
+      _React$useState20 = _slicedToArray(_React$useState19, 2),
+      showMove = _React$useState20[0],
+      setShowMove = _React$useState20[1];
+
+  var _React$useState21 = react__WEBPACK_IMPORTED_MODULE_0___default().useState({
+    name: '',
+    type: '',
+    cat: '',
+    power: 0
+  }),
+      _React$useState22 = _slicedToArray(_React$useState21, 2),
+      hoverMove = _React$useState22[0],
+      setHoverMove = _React$useState22[1];
+
+  var _React$useState23 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false),
+      _React$useState24 = _slicedToArray(_React$useState23, 2),
+      showPotion = _React$useState24[0],
+      setShowPotion = _React$useState24[1];
+
+  var _React$useState25 = react__WEBPACK_IMPORTED_MODULE_0___default().useState({
+    desc: '',
+    index: 0
+  }),
+      _React$useState26 = _slicedToArray(_React$useState25, 2),
+      hoverPotion = _React$useState26[0],
+      setHoverPotion = _React$useState26[1];
+
   var player = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.player;
   });
@@ -1636,7 +1664,7 @@ function App() {
     } else if (moveName === "Headbutt") {
       setTimeout(function () {
         play8();
-      }, 800);
+      }, 1000);
     } else if (moveName === "Scratch") {
       play3();
     } else if (moveName === "Swords Dance") {
@@ -1834,7 +1862,11 @@ function App() {
     className: "intro-left three"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "intro-right four"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), showMove ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: "move-info-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, hoverMove.name), hoverMove.cat === "boost" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Raises Defense") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Base Power: ", hoverMove.power), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Type: ", hoverMove.type), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, hoverMove.cat === "specialDef" ? 'Special' : 'Physical')) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null), showPotion ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    id: "potion-info-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, hoverPotion.desc), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, potions[hoverPotion.index], " remaining")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "battle-scene"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerStats__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_EnemyStats__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     className: "player-sprite",
@@ -1877,6 +1909,8 @@ function App() {
     setStatusText: setStatusText,
     resetReveal: resetReveal
   }) : toggleOptions === 'attacks' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_PlayerMoves__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    setHoverMove: setHoverMove,
+    setShowMove: setShowMove,
     resetReveal: resetReveal,
     setStatusText: setStatusText,
     changeView: changeView,
@@ -1889,7 +1923,9 @@ function App() {
     potionSequence: potionSequence,
     changeView: changeView,
     setStatusText: setStatusText,
-    resetReveal: resetReveal
+    resetReveal: resetReveal,
+    setHoverPotion: setHoverPotion,
+    setShowPotion: setShowPotion
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null))));
 }
 
@@ -2120,11 +2156,22 @@ var PlayerItems = function PlayerItems(props) {
       play = _useSound2[0];
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      props.setHoverPotion({
+        desc: 'Heals 20 HP',
+        index: 0
+      });
+      props.setShowPotion(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      props.setShowPotion(false);
+    },
     value: "20",
     onClick: function onClick(event) {
       if (props.potions[0] == 1) {
         props.potionSequence(event);
         props.setPotions([0, props.potions[1], props.potions[2]]);
+        props.setShowPotion(false);
       } else {
         play();
         props.setStatusText('You are out of potions!');
@@ -2133,11 +2180,22 @@ var PlayerItems = function PlayerItems(props) {
     },
     className: "option water"
   }, "Potion"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      props.setHoverPotion({
+        desc: 'Heals 50 HP',
+        index: 1
+      });
+      props.setShowPotion(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      props.setShowPotion(false);
+    },
     value: "50",
     onClick: function onClick(event) {
       if (props.potions[1] == 1) {
         props.potionSequence(event);
         props.setPotions([props.potions[0], 0, props.potions[2]]);
+        props.setShowPotion(false);
       } else {
         play();
         props.setStatusText('You are out of super potions!');
@@ -2146,11 +2204,22 @@ var PlayerItems = function PlayerItems(props) {
     },
     className: "option grass"
   }, "Super Potion"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      props.setHoverPotion({
+        desc: 'Heals 100 HP',
+        index: 2
+      });
+      props.setShowPotion(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      props.setShowPotion(false);
+    },
     value: "100",
     onClick: function onClick(event) {
       if (props.potions[2] == 1) {
         props.potionSequence(event);
         props.setPotions([props.potions[0], props.potions[1], 0]);
+        props.setShowPotion(false);
       } else {
         play();
         props.setStatusText('You are out of hyper potions!');
@@ -2201,10 +2270,18 @@ var PlayerMoves = function PlayerMoves(props) {
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, player.moves.map(function (move, idx) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      onMouseEnter: function onMouseEnter() {
+        props.setShowMove(true);
+        props.setHoverMove(move);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return props.setShowMove(false);
+      },
       key: idx,
       index: idx,
       onClick: function onClick(event) {
         props.battleSequence(event);
+        props.setShowMove(false);
       },
       className: "option " + "".concat(move.type)
     }, move.name);

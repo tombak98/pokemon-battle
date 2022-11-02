@@ -25,6 +25,10 @@ function App(){
     const [audio, setAudio] = React.useState('https://vgmsite.com/soundtracks/pokemon-firered-leafgreen-enhanced-soundtrack/iueoobedzt/11%20Trainer%20Battle%21.mp3')
     const [playingMusic, setPlayingMusic] = React.useState(false)
     const [potions, setPotions] = React.useState([1,1,1])
+    const [showMove, setShowMove] = React.useState(false)
+    const [hoverMove, setHoverMove] = React.useState({ name: '', type: '', cat: '', power: 0})
+    const [showPotion, setShowPotion] = React.useState(false)
+    const [hoverPotion, setHoverPotion] = React.useState({desc:'', index: 0})
     
     const player = useSelector(state => state.player)
     const enemy = useSelector(state => state.enemy)
@@ -148,7 +152,7 @@ function App(){
         } else if (moveName === "Headbutt") {
             setTimeout(()=>{
                 play8()
-            }, 800)
+            }, 1000)
         } else if (moveName === "Scratch") {
             play3()
         } else if (moveName === "Swords Dance") {
@@ -258,6 +262,18 @@ function App(){
         <div className="intro-right two"></div>
         <div className="intro-left three"></div>
         <div className="intro-right four"></div>
+        {showMove ? <div id="move-info-card">
+            <p>{hoverMove.name}</p>
+            {hoverMove.cat === "boost" ? 
+            <p>Raises Defense</p> : 
+            <p>Base Power: {hoverMove.power}</p>}
+            <p>Type: {hoverMove.type}</p>
+            <p>{hoverMove.cat === "specialDef" ? 'Special':'Physical'}</p>
+        </div> : <></>}
+        {showPotion ? <div id="potion-info-card">
+            <p>{hoverPotion.desc}</p>
+            <p>{potions[hoverPotion.index]} remaining</p>
+        </div> : <></>}
         <div id="battle-scene">
             <PlayerStats/>
             <EnemyStats/>
@@ -280,13 +296,14 @@ function App(){
             <div className="player-options">
                 {waiting ? <div className="option">Waiting...</div> : 
                 (toggleOptions === 'menu' ? <PlayerActions changeView={changeView} setStatusText={setStatusText} resetReveal={resetReveal}/>
-                : (toggleOptions === 'attacks' ? <PlayerMoves resetReveal={resetReveal} setStatusText={setStatusText} 
+                : (toggleOptions === 'attacks' ? <PlayerMoves setHoverMove={setHoverMove} setShowMove={setShowMove} resetReveal={resetReveal} setStatusText={setStatusText} 
                 changeView={changeView} wait={wait} enemyAttacks={enemyAttacks}
                 battleSequence={battleSequence}/> : 
                 (toggleOptions === 'bag' ? <PlayerItems 
                 setPotions={setPotions} potions={potions} 
                 potionSequence={potionSequence} changeView={changeView}
-                setStatusText={setStatusText} resetReveal={resetReveal}/> : <></>)))
+                setStatusText={setStatusText} resetReveal={resetReveal}
+                setHoverPotion={setHoverPotion} setShowPotion={setShowPotion}/> : <></>)))
                 }
             </div>
         </div>

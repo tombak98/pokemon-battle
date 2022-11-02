@@ -10,8 +10,12 @@ const PlayerMoves = (props) => {
     return (
     <>
         {player.moves.map((move,idx) =>
-            <div key={idx} index={idx} onClick={(event)=>{
+            <div onMouseEnter={()=>{
+                props.setShowMove(true)
+                props.setHoverMove(move)
+            }} onMouseLeave={()=>props.setShowMove(false)} key={idx} index={idx} onClick={(event)=>{
                 props.battleSequence(event)
+                props.setShowMove(false)
             }} 
                 className={"option " +`${move.type}`}>{move.name}
             </div>

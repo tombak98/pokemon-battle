@@ -7,10 +7,17 @@ const PlayerItems = (props) => {
     
     return (
     <>
-        <div value="20" onClick={(event)=>{
+        <div onMouseEnter={()=>{
+            props.setHoverPotion({desc: 'Heals 20 HP', index: 0})
+            props.setShowPotion(true)
+        }} 
+        onMouseLeave={()=>{
+            props.setShowPotion(false)
+        }} value="20" onClick={(event)=>{
             if (props.potions[0] == 1) {
                 props.potionSequence(event)
                 props.setPotions([0, props.potions[1], props.potions[2]])
+                props.setShowPotion(false)
             } else {
                 play()
                 props.setStatusText('You are out of potions!')
@@ -18,10 +25,17 @@ const PlayerItems = (props) => {
             }
         }} className="option water">Potion</div>
 
-        <div value="50" onClick={(event)=>{
+        <div onMouseEnter={()=>{
+            props.setHoverPotion({desc: 'Heals 50 HP', index: 1})
+            props.setShowPotion(true)
+        }} 
+        onMouseLeave={()=>{
+            props.setShowPotion(false)
+        }} value="50" onClick={(event)=>{
             if (props.potions[1] == 1) {
                 props.potionSequence(event)
                 props.setPotions([props.potions[0], 0, props.potions[2]])
+                props.setShowPotion(false)
             } else {
                 play()
                 props.setStatusText('You are out of super potions!')
@@ -29,10 +43,17 @@ const PlayerItems = (props) => {
             }
         }} className="option grass">Super Potion</div>
 
-        <div value="100" onClick={(event)=>{
+        <div onMouseEnter={()=>{
+            props.setHoverPotion({desc: 'Heals 100 HP', index: 2})
+            props.setShowPotion(true)
+        }} 
+        onMouseLeave={()=>{
+            props.setShowPotion(false)
+        }} value="100" onClick={(event)=>{
             if (props.potions[2] == 1) {
                 props.potionSequence(event)
                 props.setPotions([props.potions[0], props.potions[1], 0])
+                props.setShowPotion(false)
             } else {
                 play()
                 props.setStatusText('You are out of hyper potions!')
